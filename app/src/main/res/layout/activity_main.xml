@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="dashboardViewModel"
+            type="com.example.smartgladiatortask.viewmodel.home.DashboardViewModel" />
+
+        <variable
+            name="mainActivity"
+            type="com.example.smartgladiatortask.ui.activity.MainActivity" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@drawable/border_botom"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:ellipsize="end"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:text="@={dashboardViewModel.name}"
+                    android:textColor="@android:color/black" />
+
+                <com.example.smartgladiatortask.util.circleImage.CircularImageView
+                    android:id="@+id/img_pic"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:siBorderWidth="2dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:onClick="@{()->mainActivity.logout()}"
+                    android:src="@drawable/person_icon" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:visibility="@{dashboardViewModel.loader ? View.VISIBLE : View.GONE}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="10dp"
+            android:ellipsize="end"
+            android:text="@string/no_data_found"
+            android:textColor="@android:color/black"
+            android:visibility="@{dashboardViewModel.noDataFound ? View.VISIBLE : View.GONE}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar" />
+
+    </RelativeLayout>
+
+
+</layout>
